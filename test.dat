@@ -1,0 +1,22 @@
+Indices      : 1001 1002 1003 1004 1005 1008
+
+Colors      : red black
+Colors 1001 : red
+Colors 1005 : black
+
+Flavors      : 0 1 2
+Flavors 1002 : 0 2 3
+Flavors red   1003 : 0 2 4
+Flavors black 1003 : 0 4
+
+Qualities red : 4.5 8.5 .5
+Qualities black 0 : 4.5 9 .5
+Qualities black 1 : 4.5 9 .5
+Qualities black 2 : 4.5 9.5 .5
+Qualities black fl_4 : 5.5 9.5 1
+
+Tempertures 1000 : 300 500 11
+Tempertures 1004 : 300 450 16
+Tempertures black : 1000 2000 11
+Tempertures black q_6 : 1500
+
