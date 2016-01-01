@@ -17,10 +17,13 @@ class UIValue
 
     void setUsed(void) const { myUsed=true; }
 
-    std::string input_line(void) const
-    {
-      return std::string("[line ") + util::int2str(myLineNo) + "] " + myLine;
-    }
+    bool        isUsed(void)      const { return myUsed; }
+    int         line_number(void) const { return myLineNo; }
+    std::string input_line(void)  const { return myLine; }
+
+    IntSet_t    getIntSet(void) const;
+    StringSet_t getStringSet(void) const;
+    NumSet_t    getNumSet(void) const;
 
   private:
     StringList_t myValues;

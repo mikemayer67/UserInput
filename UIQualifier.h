@@ -12,7 +12,7 @@ class UIQualifier
     UIQualifier(const StringList_t &values);
 
     UIQualifier(int id=-1,Color_t color=NoColor,int flavor=-1, double quality=-1.)
-      : _id(id), _color(color), _flavor(flavor), _quality(quality)
+      : _id(id-1000), _color(color), _flavor(flavor), _quality(quality)
     {}
 
     std::string parameter_name(void) const { return _name; }

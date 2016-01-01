@@ -10,6 +10,9 @@
 typedef std::vector<std::string> StringList_t;
 typedef std::set<std::string> StringSet_t;
 
+typedef std::set<int>    IntSet_t;
+typedef std::set<double> NumSet_t;
+
 typedef enum { NoColor, Black, Red } Color_t;
 
 #endif // _TYPES_H_

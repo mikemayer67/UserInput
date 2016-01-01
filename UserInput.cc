@@ -1,6 +1,7 @@
 #include "UserInput.h"
 
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <sstream>
 
@@ -77,10 +78,11 @@ void UserInput::add(int lineno,string line)
   UIQualifier qual(keys);
   UIValue     value(values,lineno,line);
 
-  string parameter_key = util::str2key(qual.parameter_name());
+  string parameter_name = qual.parameter_name();
+  string parameter_key  = util::str2key(parameter_name);
 
   pair<Map_t::iterator,bool> rc = 
-    myParameters.insert( make_pair( parameter_key, UIParameter(parameter_key) ) );
+    myParameters.insert( make_pair( parameter_key, UIParameter(parameter_name) ) );
 
   rc.first->second.add(qual,value);
 }
@@ -112,7 +114,7 @@ const UIValue &UserInput::lookup(string key,int id,Color_t color,int flavor,doub
 
 const UIParameter &UserInput::lookupParameter(string key) const
 {
-  Iter_t rval = myParameters.find(key);
+  Iter_t rval = myParameters.find(util::str2key(key));
   if(rval==myParameters.end())
   {
     stringstream err;
@@ -120,4 +122,33 @@ const UIParameter &UserInput::lookupParameter(string key) const
     throw runtime_error(err.str());
   }
   return rval->second;
+}
+
+void UserInput::warn_unused(void) const
+{
+  bool foundUnused(false);
+  map<int,string> unusedQualifiers;
+
+  for(Iter_t x=myParameters.begin(); x!=myParameters.end(); ++x)
+  {
+    if( x->second.isUsed() )
+    {
+      x->second.findUnusedQualifiers(unusedQualifiers);
+    }
+    else
+    {
+      if(!foundUnused) cerr << endl << "__Unused parameters in input file__" << endl;
+      cerr << "  " << x->second.name() << endl;
+      foundUnused = true;
+    }
+  }
+
+  if(!unusedQualifiers.empty())
+  {
+    cerr << endl << "__Unused parameter specializations__" << endl;
+    for( map<int,string>::iterator x=unusedQualifiers.begin(); x!=unusedQualifiers.end(); ++x)
+    {
+      cerr << "   " << setw(4) << x->first << ": " << x->second << endl;
+    }
+  }
 }

@@ -1,4 +1,7 @@
 *.o
 uitest
 *.swp
-
+Build
+DerivedData
+*.bak
+*.xcodeproj

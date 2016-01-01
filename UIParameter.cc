@@ -68,17 +68,28 @@ void UIParameter::validateKeys(UIQualifier::Qualifiers_t q) const
     if( ! x->first.validate(q) ) 
     {
       stringstream err;
-      err << "Parameter " << myName << " ";
+      err << "Parameter '" << myName << "' ";
       switch(q)
       {
-        case UIQualifier::NO_QUALIFIERS:   err << "does not allow any questions";        break;
+        case UIQualifier::NO_QUALIFIERS:   err << "does not allow any qualifiers";       break;
         case UIQualifier::ID_ONLY:         err << "only allows ID qualifier";            break;  
         case UIQualifier::ID_AND_COLOR:    err << "only allows ID and color qualifiers"; break;  
         case UIQualifier::ALL_BUT_QUALITY: err << "does not allow quality qualifiers";   break;
         default: break; // only here to suppress warnings
       }
-      err << endl << "  " << x->second.input_line();
+      err << endl << "  [" << x->second.line_number() << "] " << x->second.input_line();
       throw runtime_error(err.str());
     }
   }
 }
+
+void UIParameter::findUnusedQualifiers(map<int,string> &unused) const
+{
+  for(Iter_t x=myValues.begin(); x!=myValues.end(); ++x)
+  {
+    const UIValue &v = x->second;
+    if( ! v.isUsed() ) unused[v.line_number()] = v.input_line();
+  }
+}
+
+

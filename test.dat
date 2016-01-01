@@ -2,14 +2,22 @@ Indices      : 1001 1002 1003 1004 1005 1008
 
 Colors      : red black
 Colors 1001 : red
+Colors 1002 : red black
+Colors 1003 : red black
+Colors 1004 : red black
+Colors 1008 : red black
 Colors 1005 : black
 
-Flavors      : 0 1 2
-Flavors 1002 : 0 2 3
+Flavors            : 0 1 2
+Flavors       1008 : 5
+Flavors red        : 0 1 2
+Flavors black      : 0 1 3
+Flavors 1002       : 0 2 3
 Flavors red   1003 : 0 2 4
 Flavors black 1003 : 0 4
 
 Qualities red : 4.5 8.5 .5
+Qualities black : 4 4.5 .1
 Qualities black 0 : 4.5 9 .5
 Qualities black 1 : 4.5 9 .5
 Qualities black 2 : 4.5 9.5 .5

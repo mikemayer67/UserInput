@@ -2,6 +2,7 @@
 
 #include <stdlib.h>
 #include <ctype.h>
+#include <limits.h>
 #include <sstream>
 
 using namespace std;
@@ -15,7 +16,7 @@ bool util::isNumber(const string &s)
 {
   bool rval=true;
 
-  try { double x = str2num(s); } catch(...) { rval = false; }
+  try { str2num(s); } catch(...) { rval = false; }
 
   return rval;
 }
@@ -33,18 +34,24 @@ int util::str2int(const string &s)
     err << "failed to convert '" << s << "' to integer: " << strerror(errno);
     throw runtime_error(err.str());
   }
+  if(rval>INT_MAX || rval<INT_MIN)
+  {
+    stringstream err;
+    err << "cannot convert '" << s << "' to an integer: exceeds limits";
+    throw runtime_error(err.str());
+  }
   while(*end)
   {
     if( ! isspace(*end) )
     {
       stringstream err;
-      err << "failed to convert '" << s << "' to integer: extra stuff following integer value";
+      err << "failed to convert '" << s << "' to integer";
       throw runtime_error(err.str());
     }
     ++end;
   }
   
-  return rval;
+  return int(rval);
 }
 
 double util::str2num(const string &s)

@@ -1,4 +1,4 @@
-OBJ = UIParameter.o UIQualifier.o UserInput.o util.o uitest.o
+OBJ = UIParameter.o UIQualifier.o UIValue.o UserInput.o util.o uitest.o
 
 uitest: $(OBJ)
 	g++ -g -o $@ $^
@@ -16,6 +16,7 @@ clean:
 
 UIParameter.o: UIParameter.h UIQualifier.h types.h UIValue.h util.h
 UIQualifier.o: UIQualifier.h types.h util.h
+UIValue.o: UIValue.h types.h util.h
 UserInput.o: UserInput.h UIParameter.h UIQualifier.h types.h UIValue.h util.h
 uitest.o: UserInput.h UIParameter.h UIQualifier.h types.h UIValue.h util.h
 util.o: util.h types.h
